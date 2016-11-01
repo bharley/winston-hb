@@ -1,4 +1,5 @@
 # winston-hb
+[![Build Status](https://travis-ci.org/bharley/winston-hb.svg?branch=master)](https://travis-ci.org/bharley/winston-hb)
 
 A [Honeybadger] transport for [Winston].
 
