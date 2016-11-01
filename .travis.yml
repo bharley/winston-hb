@@ -1,0 +1,7 @@
+language: javascript
+node_js:
+  - "6"
+  - "5"
+  - "4"
+env:
+  - NODE_ENV=test
