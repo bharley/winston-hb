@@ -51,12 +51,40 @@ describe('honeybadger transport', () => {
       });
     });
 
-    it('should handle errors specially', (done) => {
+    it('should accept error messages and context objects', (done) => {
+      const error = new Error('Critical core malfunction');
+      const context = { reactor: 2, rads: 450 };
+      transport.log('info', error, context, (err, { errorOrMessage, metadata }) => {
+        expect(errorOrMessage).to.eql(error);
+        expect(metadata.context).to.eql(context);
+        done();
+      });
+    });
+
+    it('should handle error context specially', (done) => {
       const message = 'Error processing fruits';
       const error = new Error('Something bad happened');
       transport.log('info', message, error, (err, { errorOrMessage, metadata }) => {
         expect(errorOrMessage).to.eql(error);
         expect(metadata.context).to.eql({ logMessage: message });
+        done();
+      });
+    });
+
+    it('should search `context` for an error object', (done) => {
+      const message = 'Error processing vegetables';
+      const context = {
+        error: new Error('Seeds detected'),
+        target: 'tomato',
+        count: 7,
+      };
+      transport.log('info', message, context, (err, { errorOrMessage, metadata }) => {
+        expect(errorOrMessage).to.eql(context.error);
+        expect(metadata.context).to.eql({
+          logMessage: message,
+          target: context.target,
+          count: context.count,
+        });
         done();
       });
     });

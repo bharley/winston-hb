@@ -29,6 +29,22 @@ This transport respects several options:
 You will need to configure Honeybadger through environment variables or the configuration option
 documented above. See [Honeybadger]'s setup instructions for more information.
 
+## Log Handling
+
+Since Honeybadger operates around error messages, you can pass error objects into your log in one
+of three ways:
+
+```js
+const err = new Error('Something bad happened');
+
+// As the first argument:
+winston.error(err);
+// As the second argument:
+winston.error('Problem in plumbus', err);
+// As `error` in an object in the second argument (the rest of the object will be sent to Honeybadger as context):
+winston.error('Problem in reactor', { radiationLevel: 12, error: err });
+```
+
 # Contributing
 
 Pull requests are welcome. Code style is inherited from [airbnb-base](https://www.npmjs.com/package/eslint-config-airbnb-base)
