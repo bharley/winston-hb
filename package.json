@@ -1,6 +1,6 @@
 {
   "name": "winston-hb",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "A Honeybadger transport for Winston",
   "main": "./dist/transport.js",
   "scripts": {
